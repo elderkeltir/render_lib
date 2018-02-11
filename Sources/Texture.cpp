@@ -10,7 +10,6 @@
 
 Texture::Texture(const std::string &filePath)
 {
-	GLenum err;
 	unsigned char header[124];
 
 	FILE *fp;
@@ -82,26 +81,19 @@ Texture::Texture(const std::string &filePath)
 		glCompressedTexImage2D(GL_TEXTURE_2D, level, format, width, height,
 			0, size, buffer + offset);
 
-		err = glGetError();
-
 		offset += size;
 		width = std::max(width / 2, 1u);
 		height = std::max(height / 2, 1u);
 	}
 
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	err = glGetError();
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	err = glGetError();
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	err = glGetError();
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-	err = glGetError();
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_BASE_LEVEL, 0);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, mipMapCount == 0 ? 0 : mipMapCount - 1);
 	
 	glGenerateMipmap(GL_TEXTURE_2D);
-	err = glGetError();
 	delete buffer;
 	buffer = nullptr;
 
