@@ -12,10 +12,11 @@ template <class T>
 class Vertex
 {
 public:
+	Vertex() : pos(T(0, 0, 0)) {}
 	Vertex(const T& pos) : pos(pos) {}
 	Vertex(float x, float y, float z ) : pos(T(x, y, z)) {}
 	Vertex(float x, float y) : pos(T(x, y)) {}
-	T* GetPos() { return &pos; }
+	T& GetGLM() { return pos; }
 private:
 	T pos;
 };

@@ -21,6 +21,8 @@ ShaderManager::ShaderManager(const std::string & filePath) :
 
 	glValidateProgram(mProgram);
 	CheckShaderError(mProgram, GL_LINK_STATUS, true, "Invalid shader program");
+
+	mModelLoc = glGetUniformLocation(mProgram, "MVP");
 }
 
 ShaderManager::~ShaderManager()
