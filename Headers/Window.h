@@ -14,8 +14,10 @@ public:
 
 	void Clear(float r, float g, float b, float a) const;
 	bool isActive() const;
-
 	void PollEvents() const;
+
+	size_t GetWidth() const { return mWidth; }
+	size_t GetHeight() const { return mHeight; }
 
 	// not copyable
 	Window(const Window&) = delete;

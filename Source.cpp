@@ -9,6 +9,8 @@ int main()
 	ShaderManager shaderMgr("./shaders/basicShader");
 	shaderMgr.Bind();
 
+	Camera camera(Vertex3(0, 0, -3), 70.0f, (float)window.GetWidth() / (float)window.GetHeight(), 0.01f, 100.0f);
+
 	std::vector<Vertex3> vertecies = { Vertex3(-1.0f, -1.0f, 0.f), Vertex3(0.f, 1.0f, 0.f), Vertex3(1.0f, -1.0f, 0.f) };
 	std::vector<Vertex3> vertecies2 = { Vertex3(0.f, 1.0f, 0.f), Vertex3(1.0f, 1.0f, 0.f), Vertex3(1.0f, -1.0f, 0.f) };
 	std::vector<Vertex3> vertecies3 = { Vertex3(-1.0f, -1.0f, 0.f), Vertex3(-1.0f, 1.0f, 0.f), Vertex3(0.f, 1.0f, 0.f) };
@@ -30,7 +32,7 @@ int main()
 		mesh.Move(Vertex3(sin(counter), 0, 0));
 		mesh.Rotate(Vertex3(0, 0, sin(counter)));
 		//mesh.Scale(Vertex3(sin(counter), sin(counter), 1));
-		mesh.Draw();
+		mesh.Draw(camera);
 		//mesh2.Draw();
 		//mesh3.Draw();
 		window.PollEvents();

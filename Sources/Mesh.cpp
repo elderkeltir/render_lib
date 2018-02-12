@@ -25,7 +25,7 @@ Mesh::~Mesh()
 {
 }
 
-void Mesh::Draw()
+void Mesh::Draw(const Camera &camera)
 {
 	//bind texture
 	mTexture->Bind(true);
@@ -39,28 +39,23 @@ void Mesh::Draw()
 
 	//unbind texture
 	mTexture->Bind(false);
+
+	// update position
+	auto MVP = camera.GetViewProjection() * mTransform->GetModel();
+	glUniformMatrix4fv(mProgram, 1, GL_FALSE, &MVP[0][0]);
 }
 
 void Mesh::Move(const Vertex3 & pos)
 {
 	mTransform->SetPos(pos);
-	auto model = mTransform->GetModel();
-
-	glUniformMatrix4fv(mProgram, 1, GL_FALSE, &model[0][0]);
 }
 
 void Mesh::Rotate(const Vertex3 & pos)
 {
 	mTransform->SetRot(pos);
-	auto model = mTransform->GetModel();
-
-	glUniformMatrix4fv(mProgram, 1, GL_FALSE, &model[0][0]);
 }
 
 void Mesh::Scale(const Vertex3 & pos)
 {
 	mTransform->SetScale(pos);
-	auto model = mTransform->GetModel();
-
-	glUniformMatrix4fv(mProgram, 1, GL_FALSE, &model[0][0]);
 }

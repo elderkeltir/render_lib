@@ -9,6 +9,7 @@
 #include "VertexArray.h"
 #include "Texture.h"
 #include "Transform.h"
+#include "Camera.h"
 
 class Mesh
 {
@@ -17,7 +18,7 @@ public:
 	Mesh(const std::vector<Vertex3>& verteciesPosition, const std::vector<Vertex2>& textureCoords, Texture* texture, GLuint programID);
 	~Mesh();
 
-	void Draw();
+	void Draw(const Camera &camera);
 	void Move(const Vertex3 &pos);
 	void Rotate(const Vertex3 &pos);
 	void Scale(const Vertex3 &pos);

@@ -17,6 +17,7 @@ public:
 	Vertex(float x, float y, float z ) : pos(T(x, y, z)) {}
 	Vertex(float x, float y) : pos(T(x, y)) {}
 	T& GetGLM() { return pos; }
+	const T& GetGLM() const { return pos; }
 private:
 	T pos;
 };
