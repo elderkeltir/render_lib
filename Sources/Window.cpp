@@ -4,7 +4,7 @@
 
 
 
-Window::Window(size_t width, size_t height, const std::string & title) :
+Window::Window(size_t width, size_t height, const std::string & title, const std::array<float, 4> &clearColor) :
 	mWidth(width),
 	mHeight(height),
 	mTitle(title)
@@ -42,8 +42,8 @@ Window::Window(size_t width, size_t height, const std::string & title) :
 	// Ensure we can capture the escape key being pressed below
 	glfwSetInputMode(mWindow, GLFW_STICKY_KEYS, GL_TRUE);
 
-	// Dark blue background
-	glClearColor(0.0f, 0.0f, 0.4f, 0.0f);
+	// Set BG color
+	glClearColor(clearColor[0], clearColor[1], clearColor[2], clearColor[3]);
 }
 
 Window::~Window()
@@ -52,7 +52,7 @@ Window::~Window()
 	glfwTerminate();
 }
 
-void Window::Clear(float r, float g, float b, float a) const
+void Window::Clear() const
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
@@ -65,6 +65,15 @@ bool Window::isActive() const
 
 void Window::PollEvents() const
 {
-	glfwSwapBuffers(mWindow);
 	glfwPollEvents();
+}
+
+void Window::SwapBuffers() const
+{
+	glfwSwapBuffers(mWindow);
+}
+
+bool Window::CheckKeyStatus(KeyCode code, KeyStatus status)
+{
+	return glfwGetKey(mWindow, code) == status;
 }

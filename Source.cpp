@@ -5,11 +5,12 @@
 
 int main()
 {
-	Window window(1024, 768, "Rendering!");
+	std::array<float, 4> color = { 0.0f, 0.0f, 0.4f , 0.0f};
+	Window window(1024, 768, "Rendering!", color);
 	ShaderManager shaderMgr("./shaders/basicShader");
 	shaderMgr.Bind();
 
-	Camera camera(Vertex3(0, 0, -3), 70.0f, (float)window.GetWidth() / (float)window.GetHeight(), 0.01f, 100.0f);
+	Camera camera(Vertex3(0.5f, 0.5f, -3), 70.0f, (float)window.GetWidth() / (float)window.GetHeight(), 0.01f, 100.0f);
 
 	std::vector<Vertex3> vertecies = { Vertex3(-1.0f, -1.0f, 0.f), Vertex3(0.f, 1.0f, 0.f), Vertex3(1.0f, -1.0f, 0.f) };
 	std::vector<Vertex3> vertecies2 = { Vertex3(0.f, 1.0f, 0.f), Vertex3(1.0f, 1.0f, 0.f), Vertex3(1.0f, -1.0f, 0.f) };
@@ -28,16 +29,24 @@ int main()
 	mesh.Scale(Vertex3(0.5f, 0.5f, 1));
 	while (window.isActive())
 	{
-		window.Clear(0,0,0,0);
-		mesh.Move(Vertex3(sin(counter), 0, 0));
-		mesh.Rotate(Vertex3(0, 0, sin(counter)));
+		window.Clear();
+
+		window.PollEvents();
+
+		if (window.CheckKeyStatus(Window::KEY_UP, Window::KEY_PRESS))
+		{
+			mesh.Move(Vertex3(sin(counter), 0, 0));
+			mesh.Rotate(Vertex3(0, 0, sin(counter)));
+
+			counter += 0.01f;
+		}
 		//mesh.Scale(Vertex3(sin(counter), sin(counter), 1));
 		mesh.Draw(camera);
 		//mesh2.Draw();
 		//mesh3.Draw();
-		window.PollEvents();
+		window.SwapBuffers();
 
-		counter += 0.01f;
+		
 	}
 
 	return 0;
