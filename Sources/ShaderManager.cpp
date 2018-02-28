@@ -7,8 +7,8 @@
 ShaderManager::ShaderManager(const std::string & filePath) :
 	mFilePath(filePath)
 {
-	CreateShader(VERTEX_SHADER, LoadShader(VERTEX_SHADER).c_str());
-	CreateShader(FRAGMENT_SHADER, LoadShader(FRAGMENT_SHADER).c_str());
+	CreateShader(ShaderType::VERTEX_SHADER, LoadShader(ShaderType::VERTEX_SHADER).c_str());
+	CreateShader(ShaderType::FRAGMENT_SHADER, LoadShader(ShaderType::FRAGMENT_SHADER).c_str());
 
 
 	// create shader program and bind shaders to it
@@ -44,7 +44,7 @@ void ShaderManager::Bind() const
 std::string ShaderManager::LoadShader(ShaderType type) const
 {
 	std::string ext =
-		type == VERTEX_SHADER ? ".glvs" : ".glfs";
+		type == ShaderType::VERTEX_SHADER ? ".glvs" : ".glfs";
 
 	std::string fullPath = mFilePath + ext;
 
@@ -64,7 +64,7 @@ std::string ShaderManager::LoadShader(ShaderType type) const
 void ShaderManager::CreateShader(ShaderType type, const std::string& shaderSource)
 {
 	GLenum shType =
-		type == VERTEX_SHADER ? GL_VERTEX_SHADER : GL_FRAGMENT_SHADER;
+		type == ShaderType::VERTEX_SHADER ? GL_VERTEX_SHADER : GL_FRAGMENT_SHADER;
 
 	GLuint shader = glCreateShader(shType);
 
@@ -72,9 +72,9 @@ void ShaderManager::CreateShader(ShaderType type, const std::string& shaderSourc
 	glShaderSource(shader, 1, &sourcePointer, NULL);
 	glCompileShader(shader);
 
-	mShaders.at(type) = shader;
+	mShaders.at(static_cast<size_t>(type)) = shader;
 
-	CheckShaderError(mShaders.at(type), GL_COMPILE_STATUS, false, "Error compiling shader!");
+	CheckShaderError(mShaders.at(static_cast<size_t>(type)), GL_COMPILE_STATUS, false, "Error compiling shader!");
 }
 
 void ShaderManager::CheckShaderError(GLuint shader, GLuint flag, bool isProgram, const std::string& errorMessage)

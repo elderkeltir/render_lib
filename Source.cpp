@@ -33,7 +33,7 @@ int main()
 
 		window.PollEvents();
 
-		if (window.CheckKeyStatus(Window::KEY_UP, Window::KEY_PRESS))
+		if (window.CheckKeyStatus(Window::KeyCode::KEY_UP, Window::KeyStatus::KEY_PRESS))
 		{
 			mesh.Move(Vertex3(sin(counter), 0, 0));
 			mesh.Rotate(Vertex3(0, 0, sin(counter)));

@@ -75,5 +75,5 @@ void Window::SwapBuffers() const
 
 bool Window::CheckKeyStatus(KeyCode code, KeyStatus status)
 {
-	return glfwGetKey(mWindow, code) == status;
+	return glfwGetKey(mWindow, static_cast<int>(code)) == static_cast<int>(status);
 }

@@ -11,8 +11,8 @@ class Window
 {
 public:
 	// forward declaration
-	enum KeyCode;
-	enum KeyStatus;
+	enum class KeyCode;
+	enum class KeyStatus;
 
 	Window(size_t width, size_t height, const std::string& title, const std::array<float, 4> &clearColor);
 	~Window();
@@ -36,13 +36,13 @@ private:
 	GLFWwindow* mWindow;
 
 public:
-	enum KeyStatus
+	enum class KeyStatus
 	{
 		KEY_RELEASE = 0,
 		KEY_PRESS = 1,
 		KEY_REPEAT = 2
 	};
-	enum KeyCode // not strong typed enum for conversion to int
+	enum  class KeyCode
 	{
 		/* Printable keys */
 		KEY_SPACE = 32,

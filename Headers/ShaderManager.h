@@ -27,7 +27,7 @@ private:
 	};
 	std::string mFilePath;
 	GLuint mProgram;
-	std::array<GLuint, SHADER_NUM> mShaders;
+	std::array<GLuint,SHADER_NUM> mShaders;
 	GLuint mModelLoc;
 
 	std::string LoadShader(ShaderType type) const;
